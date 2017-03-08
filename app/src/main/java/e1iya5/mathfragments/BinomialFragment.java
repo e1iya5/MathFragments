@@ -82,10 +82,10 @@ public class BinomialFragment extends MainActivity.CalcFragment {
 
     @Override
     public int calc() {
-        EditText eTn = (EditText) getView().findViewById(R.id.editText3);
-        EditText eTk = (EditText) getView().findViewById(R.id.editText4);
+        EditText eTn = (EditText) getActivity().findViewById(R.id.editText3);
+        EditText eTk = (EditText) getActivity().findViewById(R.id.editText4);
         // Vervollständige!
-        return 123;
+        return Integer.parseInt(eTn.getText().toString());
     }
 
     /**

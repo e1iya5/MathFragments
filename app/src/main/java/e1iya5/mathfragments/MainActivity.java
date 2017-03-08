@@ -93,9 +93,12 @@ public class MainActivity extends AppCompatActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
+        CalcFragment fib, binom, fac;
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            fib = new FibonacciFragment();
+            binom = new BinomialFragment();
+            fac = new FactorialFragment();
         }
 
         @Override
@@ -103,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
             // return PlaceholderFragment.newInstance(position + 1);
             switch (position) {
                 case 0:
-                    return new FibonacciFragment();
+                    return fib;
                 case 1:
-                    return new BinomialFragment();
+                    return binom;
                 case 2:
-                    return new FactorialFragment();
+                    return fac;
             }
             return null;
         }
