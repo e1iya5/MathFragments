@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 
 /**
@@ -79,10 +80,21 @@ public class FibonacciFragment extends MainActivity.CalcFragment {
         mListener = null;
     }
 
+    private long fib(int i) {
+        if (i <= 1) return 1;
+        return fib(i - 1) + fib(i - 2);
+    }
+
     @Override
-    public int calc() {
-        // Vervollständige!
-        return 123;
+    public long calc() throws InvalidInputException {
+        EditText eTx = (EditText) getActivity().findViewById(R.id.editText);
+        int x;
+        try {
+            x = Integer.parseInt(eTx.getText().toString());
+        } catch (Exception e) {
+            throw new InvalidInputException(eTx.getText().toString());
+        }
+        return fib(x);
     }
 
     /**
@@ -99,4 +111,5 @@ public class FibonacciFragment extends MainActivity.CalcFragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

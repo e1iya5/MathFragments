@@ -54,7 +54,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int itemNumber = mViewPager.getCurrentItem();
-                Snackbar.make(view, "Ergebnis: " + mSectionsPagerAdapter.getItem(itemNumber).calc(), Snackbar.LENGTH_LONG)
+                String msg = null;
+                try {
+                    msg = "Ergebnis: " + mSectionsPagerAdapter.getItem(itemNumber).calc();
+                } catch (InvalidInputException e) {
+                    msg = "Was ist das für 1 Eingabe? " + e.getInvalidInput();
+                }
+                Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -85,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static abstract class CalcFragment extends Fragment {
-        public abstract int calc();
+        public abstract long calc() throws InvalidInputException;
     }
 
     /**
@@ -93,23 +99,19 @@ public class MainActivity extends AppCompatActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        CalcFragment fib, binom, fac;
+        CalcFragment fib, fac;
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
             fib = new FibonacciFragment();
-            binom = new BinomialFragment();
             fac = new FactorialFragment();
         }
 
         @Override
         public CalcFragment getItem(int position) {
-            // return PlaceholderFragment.newInstance(position + 1);
             switch (position) {
                 case 0:
                     return fib;
                 case 1:
-                    return binom;
-                case 2:
                     return fac;
             }
             return null;
@@ -117,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -127,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return "FIBONACCI";
                 case 1:
-                    return "BINOMIALKOEFFIZIENT";
-                case 2:
                     return "FAKULTÄT";
             }
             return null;

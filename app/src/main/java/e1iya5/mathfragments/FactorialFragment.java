@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 
 /**
@@ -50,6 +51,14 @@ public class FactorialFragment extends MainActivity.CalcFragment {
         return fragment;
     }
 
+    public static long fac(int n) {
+        int r = 1;
+        for (int i = 1; i <= n; i++) {
+            r = r * i;
+        }
+        return r;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,9 +89,15 @@ public class FactorialFragment extends MainActivity.CalcFragment {
     }
 
     @Override
-    public int calc() {
-        // Vervollständige!
-        return 123;
+    public long calc() throws InvalidInputException {
+        EditText eTn = (EditText) getActivity().findViewById(R.id.editText2);
+        int n;
+        try {
+            n = Integer.parseInt(eTn.getText().toString());
+        } catch (Exception e) {
+            throw new InvalidInputException(eTn.getText().toString());
+        }
+        return fac(n);
     }
 
     /**
